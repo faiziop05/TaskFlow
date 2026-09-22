@@ -1,92 +1,48 @@
-# Task App
+# TaskFlow
 
-An Task (Todo) mobile application built using **React Native**, **Expo** and **Firebase** for user authentication, authorization, and Data Storage. The app provides a seamless Tasks management with features like Adding, Updating, and Deletion of taks. The app integrates state management using Redux and navigation with React Navigation.
+A mobile to-do app with Firebase-backed accounts and cross-device task sync.
 
-## 🖼 Screenshots
+## Overview
 
-| Sign In                                     | Sign Up                                   | Sign In                                    |
-|---------------------------------------------|-------------------------------------------|--------------------------------------------|
-| ![Sign In Screen](https://github.com/faiziop05/Task-App/blob/main/UI%20images/Screenshot_1727957016.png) | ![Sign Up Screen](https://github.com/faiziop05/Task-App/blob/main/UI%20images/Screenshot_1727957022.png) | ![Sign In](https://github.com/faiziop05/Task-App/blob/main/UI%20images/Screenshot_1727957049.png) |
+TaskFlow is a React Native (Expo) task/to-do management app. Users sign up and log in via Firebase Authentication, then create, edit, filter, and complete tasks that sync to the cloud so the same task list is available across devices. State is managed with Redux Toolkit, and tasks are also cached locally so the app stays usable offline.
 
-| Home Screen                                 | Task Screen                               | Add Task Screen                            | All Tasks by Date                          |       
-|---------------------------------------------|-------------------------------------------|--------------------------------------------|--------------------------------------------|
-| ![Home Screen](https://github.com/faiziop05/Task-App/blob/main/UI%20images/Screenshot_1727958203.png) | ![Task Screen](https://github.com/faiziop05/Task-App/blob/main/UI%20images/Screenshot_1727957901.png) | ![Add Task Screen](https://github.com/faiziop05/Task-App/blob/main/UI%20images/Screenshot_1727957281.png) | ![All Tasks](https://github.com/faiziop05/Task-App/blob/main/UI%20images/Screenshot_1727957539.png) 
+## Problem it solves
 
+Simple to-do apps often either lack accounts (so the list is stuck on one device) or require a heavy custom backend. TaskFlow keeps the task-management UX lightweight (add/edit/delete/filter tasks, due dates, search) while relying on Firebase for authentication and storage, so tasks persist per-user and sync across devices without the project needing to run its own server.
 
-## 📜 Features
+## Key features
 
-- 📝 **Task Management:** Add, update, and delete tasks easily.
-- 📅 **Task Exploration:** Browse upcoming and previous tasks to stay organized.
-- 💾 **Local Storage:** Stores tasks locally using AsyncStorage for offline access.
-- 🔄 **State Management:** Integrated Redux for efficient state handling.
-- 🔍 **Smooth Navigation:** Utilizes React Navigation for seamless app transitions.
-- 🔐 **Firebase Authentication:** Secure user login and signup using Firebase Authentication.
-- ☁️ **Cloud Storage:** All tasks and user data are stored in Firebase for real-time synchronization across devices.
+- **Firebase-authenticated accounts** — sign up, sign in, and forgot-password flows backed by Firebase Auth (`Screens/AllScreens/Signin.js`, `Signup.js`, `ForgetPassword.js`)
+- **Full task CRUD** — dedicated Add, Edit, and Task Details screens, plus an All Tasks view for browsing every task
+- **Search and filtering** — `SearchBar` and `FilterChips`/`FilterModal` components for narrowing down the task list
+- **Custom UI kit** — hand-built `Button`, `Input`, `CustomAlert`, `CustomHeader`, `CustomTabBar`, `EmptyState`, and `TaskCard` components rather than relying on a third-party UI library
+- **Local caching for offline access** — tasks cached via `@react-native-async-storage/async-storage` alongside the Firebase sync
+- **Redux-managed state** — `TodoSlice` and `loginSlice` (Redux Toolkit) drive task and auth state across the app
+- **Settings screen** for account/app-level preferences
 
-## 🛠 Packages Used
+## What's unique about it
 
-Here’s a list of major packages and technologies used in the app:
+- **Hand-rolled component library instead of a UI framework**: every interactive element (buttons, inputs, tab bar, alerts, filter chips) is a custom component under `components/`, giving the app a consistent bespoke look rather than a stock Material/iOS design system.
+- **Config-driven backend wiring**: Firebase setup is isolated in `services/Config.js`, keeping cloud credentials/config separate from the screen and Redux logic.
 
-- **React Native**: `react-native 0.74.5`
-- **Expo**: `expo 51.0.28`
-- **React Navigation**: `@react-navigation/native 6.1.18`, `@react-navigation/bottom-tabs 6.6.1`, `@react-navigation/stack 6.4.1`
-- **Redux Toolkit**: `@reduxjs/toolkit 2.2.7`
-- **Async Storage**: `@react-native-async-storage/async-storage 2.0.0`
-- **Expo Google Fonts**: `@expo-google-fonts/inter 0.2.3`
-- **DateTime Picker**: `@react-native-community/datetimepicker 8.0.1`
-- **Expo Network**: `expo-network 6.0.1`
+## Tech stack
 
-## 🚀 Installation and Setup
+- React Native 0.81 / React 19, via **Expo SDK 54**
+- **Firebase** (Authentication + data storage)
+- **Redux Toolkit / react-redux** for state management
+- **React Navigation** (stack + bottom-tabs)
+- **@react-native-async-storage/async-storage** for local/offline caching
+- **@react-native-community/datetimepicker** for due-date selection
+- **react-native-dropdown-select-list** for filter/select inputs
 
-To get a local copy of the project up and running, follow these steps:
+## Setup / running instructions
 
-### Prerequisites
+Requires Node.js and the Expo CLI toolchain, plus a Firebase project configured in `services/Config.js`.
 
-- Ensure that you have **Node.js** and **npm** installed on your machine.
-- Install **Expo CLI** globally if you haven’t already:
-  ```bash
-  npm install -g expo-cli
-## Installation
-- Clone the project files
-Navigate into the project directory:
 ```bash
-  cd ToDo
+npm install
+npm start        # opens Expo dev tools / Metro bundler
+npm run android   # run on Android emulator/device
+npm run ios       # run on iOS simulator (macOS only)
+npm run web       # run in a browser
 ```
-Install the required dependencies:
-```bash
-  npm install
-```
-Start the Expo development server:
-```bash
-  npm start
-```
-## Running the App
-You can run the app on different platforms:
-
-Android:
-```bash
-  npm run android
-```
-iOS (only on macOS):
-```bash
-  npm run ios
-```
-Web:
-```bash
-npm run web
-```
-## Building the App
-For a production-ready build, you can use Expo’s build tools:
-```bash
-  expo build:android
-  expo build:ios
-```
-## 🤝 Contributing
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
-
-## 📧 Contact
-If you have any questions or suggestions, feel free to contact me:
-
-Email: faizanhanif369@gmail.com
-
-© 2024 Faizan Hanif
